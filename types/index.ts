@@ -20,6 +20,7 @@ export interface User {
   avatar?: string;
   currentGameId?: string;
   partnerId?: string;
+  streak?: number;
 }
 
 export type GameDuration = 7 | 15 | 30;
@@ -32,6 +33,7 @@ export interface Game {
   startDate: string; // ISO date
   duration: GameDuration;
   status: 'waiting_for_partner' | 'active' | 'completed';
+  streak: number;
 }
 
 export type ChallengeStatus = 'pending' | 'accepted' | 'rejected' | 'expired';

@@ -36,6 +36,7 @@ class MockGameService {
       startDate: new Date().toISOString(),
       duration,
       status: 'waiting_for_partner',
+      streak: 1,
     };
     this.games.push(newGame);
     return newGame;
@@ -192,6 +193,38 @@ class MockGameService {
           const dateB = 'sentAt' in b ? b.sentAt : b.appliedAt;
           return new Date(dateB).getTime() - new Date(dateA).getTime();
       });
+  }
+
+
+  // --- Public Card Access ---
+
+  async getAllCards(): Promise<{actions: string[], questions: string[]}> {
+      return {
+          actions: ACTION_CARDS,
+          questions: QUESTION_CARDS
+      };
+  }
+
+  async getCardPreview(): Promise<{type: 'action' | 'question', content: string}[]> {
+      const preview: {type: 'action' | 'question', content: string}[] = [];
+      
+      // Get 3 actions
+      for(let i=0; i<3; i++) {
+          preview.push({
+              type: 'action',
+              content: ACTION_CARDS[i % ACTION_CARDS.length]
+          });
+      }
+      
+      // Get 2 questions
+      for(let i=0; i<2; i++) {
+          preview.push({
+              type: 'question',
+              content: QUESTION_CARDS[i % QUESTION_CARDS.length]
+          });
+      }
+
+      return preview.sort(() => Math.random() - 0.5);
   }
 }
 

@@ -16,7 +16,7 @@ export default function Login() {
       return;
     }
     await login(email);
-    router.replace('/home');
+    router.replace('/(tabs)');
   };
 
   return (

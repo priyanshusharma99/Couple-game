@@ -10,6 +10,7 @@ interface GameContextType {
   isLoading: boolean;
   createGame: (duration: 7 | 15 | 30) => Promise<string>; // returns code
   joinGame: (code: string) => Promise<void>;
+  leaveGame: () => void;
   checkChallenges: () => Promise<void>;
   sendCard: (card: Card) => Promise<void>;
   respondToChallenge: (challengeId: string, response: 'accept' | 'reject') => Promise<void>;
@@ -72,6 +73,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   };
+
+  const leaveGame = () => {
+    setGame(null);
+    setDeck(null);
+    setPendingChallenges([]);
+    setEvents([]);
+  };
   
   const sendCard = async (card: Card) => {
       if (!game || !user || !game.player2Id) return;
@@ -97,6 +105,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         isLoading, 
         createGame, 
         joinGame,
+        leaveGame,
         checkChallenges: refreshGameData,
         sendCard,
         respondToChallenge,

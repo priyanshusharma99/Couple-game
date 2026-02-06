@@ -12,6 +12,7 @@ export const AuthService = {
           name: email.split('@')[0],
           email,
           currentGameId: undefined, // Default no game
+          streak: 3,
         });
       }, MOCK_DELAY);
     });
@@ -24,6 +25,7 @@ export const AuthService = {
           id: 'user_' + Math.random().toString(36).substr(2, 9),
           name,
           email,
+          streak: 1,
         });
       }, MOCK_DELAY);
     });
@@ -34,7 +36,8 @@ export const AuthService = {
       return {
           id: userId,
           name: userId === 'user_1' ? 'Player One' : 'Player Two',
-          email: userId === 'user_1' ? 'p1@test.com' : 'p2@test.com'
+          email: userId === 'user_1' ? 'p1@test.com' : 'p2@test.com',
+          streak: 3
       }
   }
 };
